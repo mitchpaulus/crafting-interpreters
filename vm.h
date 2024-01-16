@@ -5,6 +5,7 @@
 
 typedef struct {
     Chunk* chunk;
+    uint8_t* ip;
 } VM;
 
 typedef enum {
@@ -15,6 +16,6 @@ typedef enum {
 
 void initVM();
 void freeVM();
-void interpret(Chunk* chunk);
+InterpretResult interpret(Chunk* chunk);
 
 #endif
