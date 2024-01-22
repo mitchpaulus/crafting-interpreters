@@ -21,5 +21,3 @@ void compile(const char* source) {
         if (token.type == TOKEN_EOF) break;
     }
 }
-
-
