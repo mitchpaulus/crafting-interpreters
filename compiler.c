@@ -236,6 +236,7 @@ static void printToken(Token token) {
 
 static void parsePrecedence(Precedence precedence) {
     advance();
+    // printToken(parser.previous);
     ParseFn prefixRule = getRule(parser.previous.type)->prefix;
 
     if (prefixRule == NULL) {
@@ -247,6 +248,7 @@ static void parsePrecedence(Precedence precedence) {
 
     while (precedence <= getRule(parser.current.type)->precedence) {
         advance();
+        printToken(parser.previous);
         ParseFn infixRule = getRule(parser.previous.type)->infix;
         infixRule();
     }
