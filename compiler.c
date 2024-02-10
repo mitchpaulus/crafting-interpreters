@@ -230,6 +230,10 @@ ParseRule rules[] = {
     [TOKEN_EOF]           = {NULL, NULL, PREC_NONE}
 };
 
+static void printToken(Token token) {
+    printf("%.*s\n", token.length, token.start);
+}
+
 static void parsePrecedence(Precedence precedence) {
     advance();
     ParseFn prefixRule = getRule(parser.previous.type)->prefix;
