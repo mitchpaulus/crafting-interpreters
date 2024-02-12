@@ -1,12 +1,13 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+
 #include "common.h"
+#include "compiler.h"
 #include "debug.h"
 #include "object.h"
 #include "memory.h"
 #include "vm.h"
-#include "compiler.h"
 
 VM vm;
 
@@ -55,8 +56,8 @@ static bool isFalsey(Value value) {
 }
 
 static void concatenate() {
-    ObjString* b AS_STRING(pop());
-    ObjString* a AS_STRING(pop());
+    ObjString* b = AS_STRING(pop());
+    ObjString* a = AS_STRING(pop());
 
     int length = a->length + b->length;
 
@@ -66,6 +67,7 @@ static void concatenate() {
     chars[length] = '\0';
 
     ObjString* result = takeString(chars, length);
+    push(OBJ_VAL(result));
 }
 
 static InterpretResult run() {
