@@ -441,6 +441,16 @@ static void expressionStatement() {
     emitByte(OP_POP);
 }
 
+static void ifStatment() {
+    consume(TOKEN_LEFT_PAREN, "Expect '(' after 'if'.");
+    expression();
+    consume(TOKEN_RIGHT_PAREN, "Expect ')' after 'if'.");
+
+    int thenJump = emitJump(OP_JUMP_OR_FALSE);
+    statement();
+    patchJump(thenJump);
+}
+
 static void printStatement() {
     expression();
     consume(TOKEN_SEMICOLON, "Expect ';' after value.");
@@ -486,6 +496,8 @@ static void declaration() {
 static void statement() {
     if (match(TOKEN_PRINT)) {
         printStatement();
+    } else if (match(TOKEN_IF)) {
+        ifStatment();
     } else if (match(TOKEN_LEFT_BRACE)) {
         beginScope();
         block();
